@@ -65,8 +65,32 @@ async function main(){
         }
     })
 
+    //LONG METHOD (NEED TO MANUALLY JOIN COLLECTIONS AT REACT SIDE)
+    // app.get("/listings", async function(req,res){
+    //     let response = await db.collection("listings").find().toArray();
+    //     res.json(response);
+    // })
+
+    //SHORT METHOD JOIN USING MONGO
     app.get("/listings", async function(req,res){
-        let response = await db.collection("listings").find().toArray();
+        let response = await db.collection("listings").aggregate([
+            {
+                $lookup: {
+                    from: "brands",
+                    localField: "brandId",
+                    foreignField: "_id",
+                    as: "brand",
+                }
+            },
+            {
+                $lookup: {
+                    from: "countries",
+                    localField: "countryId",
+                    foreignField: "_id",
+                    as: "country",
+                }
+            }
+        ]).toArray();
         res.json(response);
     })
 
