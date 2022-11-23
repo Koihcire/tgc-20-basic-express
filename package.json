@@ -1,0 +1,25 @@
+{
+  "name": "tgc-20-basic-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Koihcire/tgc-20-basic-express.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Koihcire/tgc-20-basic-express/issues"
+  },
+  "homepage": "https://github.com/Koihcire/tgc-20-basic-express#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongo": "^0.1.0"
+  }
+}
