@@ -72,14 +72,14 @@ async function main(){
 
     app.post("/create-listing", async function(req,res){
         let name = req.body.name;
-        let country = ObjectId(req.body.countryId);
-        let brand = ObjectId(req.body.brandId);
+        let countryId = ObjectId(req.body.countryId);
+        let brandId = ObjectId(req.body.brandId);
 
         try{
             let response = await db.collection("listings").insertOne({
                 name,
-                country,
-                brand
+                countryId,
+                brandId
             })
             res.status(200);
             res.json(response);
