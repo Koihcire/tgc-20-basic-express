@@ -66,77 +66,77 @@ async function main() {
     })
    
     // JOIN USING AGGREGATE
-    app.get("/listings", async function(req,res){
-        let search = {};
-        let response = await db.collection("listings").aggregate([
-            {
-                $match: search
-            },
-            {
-                $lookup: {
-                    from: "brands",
-                    localField: "brandId",
-                    foreignField: "_id",
-                    as: "brand",
-                }
-            },
-            {
-                $lookup: {
-                    from: "countries",
-                    localField: "countryId",
-                    foreignField: "_id",
-                    as: "country",
-                }
-            }
-        ]).toArray();
-        res.json(response);
-    })
-
-    // JOIN USING MANUAL JOIN
-    // app.get("/listings", async function (req, res) {
-    //     try {
-    //         let listingsResponse = await db.collection("listings").find().toArray();
-    //         let brandsResponse = await db.collection("brands").find().toArray();
-    //         let countriesResponse = await db.collection("countries").find().toArray();
-
-    //         let listingsData = listingsResponse;
-    //         // console.log(listingsData);
-    //         let brandsData = brandsResponse;
-    //         // console.log(brandsData);
-    //         let countriesData = countriesResponse;
-    //         // console.log(countriesData);
-
-    //         for (let listing of listingsData) {
-    //             let listingBrandId = (listing.brandId).toString();
-    //             let listingCountryId = (listing.countryId).toString();
-
-    //             // console.log(listingId);
-    //             for (let brand of brandsData) {
-    //                 let brandId = (brand._id).toString();
-    //                 if (listingBrandId === brandId) {
-    //                     listing.brand = brand.brandName;
-    //                     break;
-    //                 }
+    // app.get("/listings", async function(req,res){
+    //     let search = {};
+    //     let response = await db.collection("listings").aggregate([
+    //         {
+    //             $match: search
+    //         },
+    //         {
+    //             $lookup: {
+    //                 from: "brands",
+    //                 localField: "brandId",
+    //                 foreignField: "_id",
+    //                 as: "brand",
     //             }
-    //             for (let country of countriesData) {
-    //                 let countryId = (country._id).toString();
-    //                 if (listingCountryId === countryId) {
-    //                     listing.country = country.country;
-    //                     break;
-    //                 }
+    //         },
+    //         {
+    //             $lookup: {
+    //                 from: "countries",
+    //                 localField: "countryId",
+    //                 foreignField: "_id",
+    //                 as: "country",
     //             }
     //         }
-
-    //         res.status(200);
-    //         res.json(listingsData);
-    //     } catch (e) {
-    //         res.status(500);
-    //         res.json({
-    //             "message": "Internal server error. Please contact administrator"
-    //         })
-    //         console.log(e)
-    //     }
+    //     ]).toArray();
+    //     res.json(response);
     // })
+
+    // JOIN USING MANUAL JOIN
+    app.get("/listings", async function (req, res) {
+        try {
+            let listingsResponse = await db.collection("listings").find().toArray();
+            let brandsResponse = await db.collection("brands").find().toArray();
+            let countriesResponse = await db.collection("countries").find().toArray();
+
+            let listingsData = listingsResponse;
+            // console.log(listingsData);
+            let brandsData = brandsResponse;
+            // console.log(brandsData);
+            let countriesData = countriesResponse;
+            // console.log(countriesData);
+
+            for (let listing of listingsData) {
+                let listingBrandId = (listing.brandId).toString();
+                let listingCountryId = (listing.countryId).toString();
+
+                // console.log(listingId);
+                for (let brand of brandsData) {
+                    let brandId = (brand._id).toString();
+                    if (listingBrandId === brandId) {
+                        listing.brand = brand.brandName;
+                        break;
+                    }
+                }
+                for (let country of countriesData) {
+                    let countryId = (country._id).toString();
+                    if (listingCountryId === countryId) {
+                        listing.country = country.country;
+                        break;
+                    }
+                }
+            }
+
+            res.status(200);
+            res.json(listingsData);
+        } catch (e) {
+            res.status(500);
+            res.json({
+                "message": "Internal server error. Please contact administrator"
+            })
+            console.log(e)
+        }
+    })
 
     app.post("/create-listing", async function (req, res) {
         let name = req.body.name;
