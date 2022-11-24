@@ -71,7 +71,7 @@ async function main(){
     //     res.json(response);
     // })
 
-    //SHORT METHOD JOIN USING MONGO
+    // SHORT METHOD JOIN USING MONGO
     app.get("/listings", async function(req,res){
         let response = await db.collection("listings").aggregate([
             {
