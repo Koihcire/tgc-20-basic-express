@@ -65,13 +65,13 @@ async function main(){
         }
     })
 
-    //LONG METHOD (NEED TO MANUALLY JOIN COLLECTIONS AT REACT SIDE)
+    //JOIN AT REACT METHOD (NEED TO MANUALLY JOIN COLLECTIONS AT REACT SIDE)
     // app.get("/listings", async function(req,res){
     //     let response = await db.collection("listings").find().toArray();
     //     res.json(response);
     // })
 
-    // SHORT METHOD JOIN USING MONGO
+    // JOIN AT EXPRESS METHOD
     app.get("/listings", async function(req,res){
         let response = await db.collection("listings").aggregate([
             {
