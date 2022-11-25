@@ -64,32 +64,40 @@ async function main() {
             console.log(e)
         }
     })
-   
+
     // JOIN USING AGGREGATE
-    // app.get("/listings", async function(req,res){
+    // app.get("/listings", async function (req, res) {
     //     let search = {};
-    //     let response = await db.collection("listings").aggregate([
-    //         {
-    //             $match: search
-    //         },
-    //         {
-    //             $lookup: {
-    //                 from: "brands",
-    //                 localField: "brandId",
-    //                 foreignField: "_id",
-    //                 as: "brand",
+    //     try {
+    //         let response = await db.collection("listings").aggregate([
+    //             {
+    //                 $match: search
+    //             },
+    //             {
+    //                 $lookup: {
+    //                     from: "brands",
+    //                     localField: "brandId",
+    //                     foreignField: "_id",
+    //                     as: "brand",
+    //                 }
+    //             },
+    //             {
+    //                 $lookup: {
+    //                     from: "countries",
+    //                     localField: "countryId",
+    //                     foreignField: "_id",
+    //                     as: "country",
+    //                 }
     //             }
-    //         },
-    //         {
-    //             $lookup: {
-    //                 from: "countries",
-    //                 localField: "countryId",
-    //                 foreignField: "_id",
-    //                 as: "country",
-    //             }
-    //         }
-    //     ]).toArray();
-    //     res.json(response);
+    //         ]).toArray();
+    //         res.status(200);
+    //         res.json(response);
+    //     } catch (e) {
+    //         res.status(500)
+    //         res.json({
+    //             "message": "Internal server error. Please contact administrator"
+    //         })
+    //     }
     // })
 
     // JOIN USING MANUAL JOIN
