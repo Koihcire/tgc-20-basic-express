@@ -99,26 +99,19 @@ async function main() {
             let brandsResponse = await db.collection("brands").find().toArray();
             let countriesResponse = await db.collection("countries").find().toArray();
 
-            let listingsData = listingsResponse;
-            // console.log(listingsData);
-            let brandsData = brandsResponse;
-            // console.log(brandsData);
-            let countriesData = countriesResponse;
-            // console.log(countriesData);
-
-            for (let listing of listingsData) {
+            for (let listing of listingsResponse) {
                 let listingBrandId = (listing.brandId).toString();
                 let listingCountryId = (listing.countryId).toString();
 
                 // console.log(listingId);
-                for (let brand of brandsData) {
+                for (let brand of brandsResponse) {
                     let brandId = (brand._id).toString();
                     if (listingBrandId === brandId) {
                         listing.brand = brand.brandName;
                         break;
                     }
                 }
-                for (let country of countriesData) {
+                for (let country of countriesResponse) {
                     let countryId = (country._id).toString();
                     if (listingCountryId === countryId) {
                         listing.country = country.country;
@@ -128,7 +121,7 @@ async function main() {
             }
 
             res.status(200);
-            res.json(listingsData);
+            res.json(listingsResponse);
         } catch (e) {
             res.status(500);
             res.json({
