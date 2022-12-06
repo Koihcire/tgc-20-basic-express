@@ -102,8 +102,9 @@ async function main() {
 
     // JOIN USING MANUAL JOIN
     app.get("/listings", async function (req, res) {
+        let search = {};
         try {
-            let listingsResponse = await db.collection("listings").find().toArray();
+            let listingsResponse = await db.collection("listings").find(search).toArray();
             let brandsResponse = await db.collection("brands").find().toArray();
             let countriesResponse = await db.collection("countries").find().toArray();
 
